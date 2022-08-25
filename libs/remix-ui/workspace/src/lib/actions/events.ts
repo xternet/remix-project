@@ -108,19 +108,9 @@ export const listenOnProviderEvents = (provider) => (reducerDispatch: React.Disp
   })
 
   provider.event.on('fileExternallyChanged', (path: string, content: string) => {
-    const config = plugin.registry.get('config').api
     const editor = plugin.registry.get('editor').api
-
-    if (config.get('currentFile') === path && editor.currentContent() !== content) {
-      if (provider.isReadOnly(path)) return editor.setText(content)
-      dispatch(displayNotification(
-        path + ' changed',
-        'This file has been changed outside of Remix IDE.',
-        'Replace by the new content', 'Keep the content displayed in Remix',
-        () => {
-          editor.setText(content)
-        }
-      ))
+    if (path) {
+      editor.setText(path, content)
     }
   })
 

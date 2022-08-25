@@ -308,11 +308,12 @@ class Editor extends Plugin {
 
   /**
    * Set the text in the current session, if any.
+   * @param {string} url Address of the text to replace.
    * @param {string} text New text to be place.
    */
-  setText (text) {
-    if (this.currentFile && this.sessions[this.currentFile]) {
-      this.sessions[this.currentFile].setValue(text)
+  setText (url, text) {
+    if (this.sessions[url]) {
+      this.sessions[url].setValue(text)
     }
   }
 
